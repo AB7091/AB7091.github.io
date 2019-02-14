@@ -107,12 +107,12 @@
 <body>
 
   <div class="row" style="direction: rtl">
+    <div class="col-xs-4 form-group">
+      <button class="btn btn-success" onclick="newTable()">جدول جدید</button>
+    </div>
     <div class="col-xs-8 form-group">
       <select id="recordName" class="form-control">
       </select>
-    </div>
-    <div class="col-xs-4 form-group">
-      <button class="btn btn-success" onclick="newTable()">جدول جدید</button>
     </div>
   </div>
 
@@ -452,7 +452,7 @@
   function fillTableList() {
     $('#games tbody').html('');
     var html = '';
-    for (var i = Object.keys(games).length - 1 ; i >= 0; i--) {
+    for (var i = Object.keys(games).length - 1; i >= 0; i--) {
       var item = Object.keys(games)[i];
       html += `<option value="${item}">جدول ${item}</option>`;
     }
