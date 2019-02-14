@@ -106,6 +106,16 @@
 
 <body>
 
+  <div class="row" style="direction: rtl">
+    <div class="col-xs-8 form-group">
+      <select id="recordName" class="form-control">
+      </select>
+    </div>
+    <div class="col-xs-4 form-group">
+      <button class="btn btn-success" onclick="newTable()">جدول جدید</button>
+    </div>
+  </div>
+
   <h1 class="text-center">Pes ScoreBoard</h1>
   <div class="alert alert-info">
     <div class="row" style="direction: rtl">
@@ -181,7 +191,7 @@
   // [{name,[id,p1,g1,p2,g2]}] ==> its model
   var recordName = "";
   var key = '$2a$10$cM1fnGXvCyWS/fmQwOtkDudh4l48d6B1dn.MgzcXWLgu.u7FV0uTm';
-  var binID = '5c6547bd1198012fc898ba03';
+  var binID = '5c655c6b1198012fc898dbfd';
   var games = {};
   $(document).ready(function () {
     GetAllFromServer();
@@ -189,7 +199,7 @@
 
   function GetAllFromServer() {
     $.ajax({
-      url: 'https://api.jsonbin.io/b/5c52abf74c4430170a952466',
+      url: 'https://api.jsonbin.io/b/' + binID,
       method: "get",
       headers: {
         'Content-Type': 'application/json',
@@ -199,9 +209,9 @@
       data: {},
       success: function (response) {
         games = response;
+        fillTableList();
         updateTable();
         updateGameTable();
-        alert('به روز شد');
       },
       error: function (data) {
         alert(data);
@@ -219,7 +229,9 @@
         'versioning': false
       },
       data: JSON.stringify(games),
-      success: function (response) { 
+      success: function (response) {
+        updateTable();
+        updateGameTable();
         alert('به روز شد');
       },
       error: function (data) {
@@ -244,7 +256,7 @@
     };
 
     games[recordName].push(game);
-    GetAllFromServer();
+    SyncWithServer();
   }
 
   function updateTable() {
@@ -437,13 +449,32 @@
     $('#games th:eq(1)').html(games[recordName].length);
   }
 
+  function fillTableList() {
+    $('#games tbody').html('');
+    var html = '';
+    for (var i = Object.keys(games).length - 1 ; i >= 0; i--) {
+      var item = Object.keys(games)[i];
+      html += `<option value="${item}">جدول ${item}</option>`;
+    }
+    $('#recordName').html(html);
+  }
+
   function removeGame(id) {
     if (confirm('مطمئنی؟؟')) {
       games[recordName] = games[recordName].filter(function (item) {
         return item.id !== id;
       });
-      GetAllFromServer();
+      SyncWithServer();
     }
+  }
+
+  function newTable() {
+    let index = Object.keys(games).length + 1;
+    games[index.toString()] = [];
+    recordName = index.toString();
+    updateTable();
+    updateGameTable();
+    alert('جدول جدید ایجاد شد');
   }
 
   function translate(name) {
