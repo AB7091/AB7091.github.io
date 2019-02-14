@@ -4,8 +4,8 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>GETTING STARTED WITH BRACKETS</title>
-  <meta name="description" content="An interactive getting started guide for Brackets.">
+  <title>جدول مسابقات PES</title>
+  <meta name="description" content="جدول مسابقات PES">
 
   <link rel="stylesheet" href="bootstrap.min.css" />
 
@@ -106,7 +106,7 @@
 
 <body>
 
-  <h1 class="text-center">Pes2018 ScoreBoard</h1>
+  <h1 class="text-center">Pes ScoreBoard</h1>
   <div class="alert alert-info">
     <div class="row" style="direction: rtl">
       <div class="col-xs-3 form-group">
@@ -178,15 +178,55 @@
 
 <script>
 
-  // {p1,g1,p2,g2} ==> its model
-  var recordName = "games31";
-  var games;
+  // [{name,[id,p1,g1,p2,g2]}] ==> its model
+  var recordName = "";
+  var key = '$2a$10$cM1fnGXvCyWS/fmQwOtkDudh4l48d6B1dn.MgzcXWLgu.u7FV0uTm';
+  var binID = '5c6547bd1198012fc898ba03';
+  var games = {};
   $(document).ready(function () {
-
-    games = JSON.parse(localStorage.getItem(recordName) || '[]');
-    updateTable();
-    updateGameTable();
+    GetAllFromServer();
   });
+
+  function GetAllFromServer() {
+    $.ajax({
+      url: 'https://api.jsonbin.io/b/5c52abf74c4430170a952466',
+      method: "get",
+      headers: {
+        'Content-Type': 'application/json',
+        'secret-key': key,
+        'versioning': false,
+      },
+      data: {},
+      success: function (response) {
+        games = response;
+        updateTable();
+        updateGameTable();
+        alert('به روز شد');
+      },
+      error: function (data) {
+        alert(data);
+      }
+    })
+  }
+
+  function SyncWithServer() {
+    $.ajax({
+      url: 'https://api.jsonbin.io/b/' + binID,
+      method: "put",
+      headers: {
+        'Content-Type': 'application/json',
+        'secret-key': key,
+        'versioning': false
+      },
+      data: JSON.stringify(games),
+      success: function (response) { 
+        alert('به روز شد');
+      },
+      error: function (data) {
+        alert(data);
+      }
+    })
+  }
 
   function register() {
     if ($('#player1').val() == $('#player2').val()) {
@@ -194,7 +234,7 @@
       return;
     }
 
-    var maxId = games.length == 0 ? 1 : Math.max.apply(Math, games.map(function (i) { return i.id; })) + 1;
+    var maxId = games[recordName].length == 0 ? 1 : Math.max.apply(Math, games[recordName].map(function (i) { return i.id; })) + 1;
     var game = {
       id: maxId,
       p1: $('#player1').val(),
@@ -203,11 +243,8 @@
       g2: parseInt($('#goal2').val()),
     };
 
-    games.push(game);
-    localStorage.setItem(recordName, JSON.stringify(games));
-    updateTable();
-    updateGameTable();
-    alert('ثبت شد!');
+    games[recordName].push(game);
+    GetAllFromServer();
   }
 
   function updateTable() {
@@ -221,7 +258,7 @@
       zade: 0,
       khorde: 0,
     };
-    games.forEach(function (item, i) {
+    games[recordName].forEach(function (item, i) {
       if (item.p1 == 'ali') { // ali
         ali.zade += item.g1;
         ali.khorde += item.g2;
@@ -269,7 +306,7 @@
       zade: 0,
       khorde: 0,
     };
-    games.forEach(function (item, i) {
+    games[recordName].forEach(function (item, i) {
       if (item.p1 == 'vahid') { // vahid
         vahid.zade += item.g1;
         vahid.khorde += item.g2;
@@ -317,7 +354,7 @@
       zade: 0,
       khorde: 0,
     };
-    games.forEach(function (item, i) {
+    games[recordName].forEach(function (item, i) {
       if (item.p1 == 'hojat') { // hojat
         hojat.zade += item.g1;
         hojat.khorde += item.g2;
@@ -387,8 +424,8 @@
   function updateGameTable() {
     $('#games tbody').html('');
     var rowsHTML = '';
-    for (var i = games.length - 1; i >= 0; i--) {
-      var item = games[i];
+    for (var i = games[recordName].length - 1; i >= 0; i--) {
+      var item = games[recordName][i];
       rowsHTML += `
                             <tr>
                                 <td class="text-center"> ${translate(item.p1)}  ${item.g1} - ${item.g2}  ${translate(item.p2)} </td>
@@ -397,18 +434,15 @@
                             `;
     }
     $('#games tbody').html(rowsHTML);
-    $('#games th:eq(1)').html(games.length);
+    $('#games th:eq(1)').html(games[recordName].length);
   }
 
   function removeGame(id) {
     if (confirm('مطمئنی؟؟')) {
-      games = games.filter(function (item) {
+      games[recordName] = games[recordName].filter(function (item) {
         return item.id !== id;
       });
-      localStorage.setItem(recordName, JSON.stringify(games));
-      updateTable();
-      updateGameTable();
-      alert('حذف شد!');
+      GetAllFromServer();
     }
   }
 
