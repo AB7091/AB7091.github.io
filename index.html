@@ -210,8 +210,6 @@
       success: function (response) {
         games = response;
         fillTableList();
-        updateTable();
-        updateGameTable();
       },
       error: function (data) {
         alert(data);
@@ -457,6 +455,10 @@
       html += `<option value="${item}">جدول ${item}</option>`;
     }
     $('#recordName').html(html);
+
+    recordName = Object.keys(games).length + 1;
+    updateTable();
+    updateGameTable();
   }
 
   function removeGame(id) {
