@@ -459,6 +459,7 @@
   }
 
   $('#recordName').change(function () {
+    recordName = $('#recordName').val().toString();
     updateTable();
     updateGameTable();
   });
