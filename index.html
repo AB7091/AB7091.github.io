@@ -455,10 +455,13 @@
     }
     $('#recordName').html(html);
 
-    recordName = Object.keys(games).length;
+    $('#recordName').val(Object.keys(games).length).trigger('change');
+  }
+
+  $('#recordName').change(function () {
     updateTable();
     updateGameTable();
-  }
+  });
 
   function removeGame(id) {
     if (confirm('مطمئنی؟؟')) {
