@@ -31,7 +31,7 @@
             // TODO(developer): Retrieve an Instance ID token for use with FCM.
             // ...
             messaging.getToken().then(function(refreshedToken) {
-                console.log(refreshedToken);    
+                console.log('token : ' + refreshedToken);    
             });
         }).catch(function (err) {
             console.log('Unable to get permission to notify.', err);
