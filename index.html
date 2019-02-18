@@ -7,9 +7,9 @@
     <title>FIREBASE TEST</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="https://www.gstatic.com/firebasejs/5.8.2/firebase.js"></script>
-    <!-- <script src="https://www.gstatic.com/firebasejs/5.8.2/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/5.8.2/firebase-messaging.js"></script> -->
-
+    <script src="https://www.gstatic.com/firebasejs/5.8.2/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.8.2/firebase-messaging.js"></script>
+    <link rel="manifest" href="manifest.json">
     <script>
         // Initialize Firebase
         var config = {
@@ -32,6 +32,8 @@
             // ...
             messaging.getToken().then(function(refreshedToken) {
                 console.log('token : ' + refreshedToken);    
+            }).catch(function(err) {
+                console.log('token error: ' + err);    
             });
         }).catch(function (err) {
             console.log('Unable to get permission to notify.', err);
