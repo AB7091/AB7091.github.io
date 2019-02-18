@@ -1,14 +1,52 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>test</title>
+    <title>FIREBASE TEST</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://www.gstatic.com/firebasejs/5.8.2/firebase.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.8.2/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.8.2/firebase-messaging.js"></script>
+
+    <script>
+        // Initialize Firebase
+        var config = {
+            // apiKey: "AIzaSyAZE7mVzqL-hvzdKTZg6tgVgUN62CKGXbo",
+            // authDomain: "fir-test-4c464.firebaseapp.com",
+            // databaseURL: "https://fir-test-4c464.firebaseio.com",
+            // projectId: "fir-test-4c464",
+            // storageBucket: "fir-test-4c464.appspot.com",
+            messagingSenderId: "1021407459353"
+        };
+        firebase.initializeApp(config);
+
+        // Retrieve Firebase Messaging object.
+        const messaging = firebase.messaging();
+
+
+        messaging.requestPermission().then(function () {
+            console.log('Notification permission granted.');
+            // TODO(developer): Retrieve an Instance ID token for use with FCM.
+            // ...
+        }).catch(function (err) {
+            console.log('Unable to get permission to notify.', err);
+        });
+
+        messaging.onMessage(function (payload) {
+            console.log('Message received. ', payload);
+            // ...
+        });
+
+    </script>
+    </script>
+
 </head>
 
 <body>
-<h1>FIREBASE TEST</h1>
+    <h1>FIREBASE TEST</h1>
+
 </body>
 
 </html>
