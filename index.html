@@ -39,13 +39,14 @@
         console.log('Notification permission granted.');
         // TODO(developer): Retrieve an Instance ID token for use with FCM.
         // ...
-        messaging.getToken().then(function (refreshedToken) {
-            console.log('token : ' + refreshedToken);
-        }).catch(function (err) {
-            console.log('token error: ' + err);
-        });
     }).catch(function (err) {
         console.log('Unable to get permission to notify.', err);
+    });
+
+    messaging.getToken().then(function (refreshedToken) {
+        console.log('token : ' + refreshedToken);
+    }).catch(function (err) {
+        console.log('token error: ' + err);
     });
 
     messaging.onMessage(function (payload) {
