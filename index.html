@@ -34,7 +34,7 @@
     // Retrieve Firebase Messaging object.
     const messaging = firebase.messaging();
 
-    navigator.serviceWorker.register('firebase-messaging-sw.js')
+    navigator.serviceWorker.register('ali.js')
         .then((registration) => {
             messaging.useServiceWorker(registration);
         });
