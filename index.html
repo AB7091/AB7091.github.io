@@ -34,6 +34,10 @@
     // Retrieve Firebase Messaging object.
     const messaging = firebase.messaging();
 
+    navigator.serviceWorker.register('firebase-messaging-sw.js')
+        .then((registration) => {
+            messaging.useServiceWorker(registration);
+        });
 
     messaging.requestPermission().then(function () {
         console.log('Notification permission granted.');
