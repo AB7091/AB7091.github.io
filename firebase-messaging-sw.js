@@ -27,9 +27,9 @@ const messaging = firebase.messaging();
 messaging.setBackgroundMessageHandler(function (payload) {  // only if payload doesnt contain 'notification' object , this callback execute
     console.log('[firebase-messaging-sw.js] Received background message ', payload);
     // Customize notification here
-    var notificationTitle = payload.title || 'پیام از پاتوقی';
+    var notificationTitle = payload.data.title || 'پیام از پاتوقی';
     var notificationOptions = {
-        body: payload.body || 'پیام از پاتوقی',
+        body: payload.data.body || 'پیام از پاتوقی',
         click_action: "https://broker.patoughi.com"
     };
 
