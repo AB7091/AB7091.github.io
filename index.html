@@ -34,11 +34,6 @@
     // Retrieve Firebase Messaging object.
     const messaging = firebase.messaging();
 
-    navigator.serviceWorker.register('ali.js')
-        .then((registration) => {
-            messaging.useServiceWorker(registration);
-        });
-
     messaging.requestPermission().then(function () {
         console.log('Notification permission granted.');
         // TODO(developer): Retrieve an Instance ID token for use with FCM.
