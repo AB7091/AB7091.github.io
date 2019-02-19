@@ -30,7 +30,7 @@ messaging.setBackgroundMessageHandler(function (payload) {
     var notificationTitle = 'Background Message Title';
     var notificationOptions = {
         body: 'Background Message body.',
-        icon: '/firebase-logo.png'
+        click_action: "https://broker.patoighi.com"
     };
 
     return self.registration.showNotification(notificationTitle,
