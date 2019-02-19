@@ -44,6 +44,7 @@
 
     messaging.getToken().then(function (refreshedToken) {
         console.log('token : ' + refreshedToken);
+        window.prompt("Copy to clipboard: Ctrl+C, Enter", refreshedToken);
     }).catch(function (err) {
         console.log('token error: ' + err);
     });
