@@ -24,12 +24,12 @@ const messaging = firebase.messaging();
 // background (Web app is closed or not in browser focus) then you should
 // implement this optional method.
 // [START background_handler]
-messaging.setBackgroundMessageHandler(function (payload) {
+messaging.setBackgroundMessageHandler(function (payload) {  // only if payload doesnt contain 'notification' object , this callback execute
     console.log('[firebase-messaging-sw.js] Received background message ', payload);
     // Customize notification here
-    var notificationTitle = 'Background Message Title';
+    var notificationTitle = payload.title || 'پیام از پاتوقی';
     var notificationOptions = {
-        body: 'Background Message body.',
+        body: payload.body || 'پیام از پاتوقی',
         click_action: "https://broker.patoughi.com"
     };
 
