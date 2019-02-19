@@ -30,7 +30,7 @@ messaging.setBackgroundMessageHandler(function (payload) {
     var notificationTitle = 'Background Message Title';
     var notificationOptions = {
         body: 'Background Message body.',
-        click_action: "https://broker.patoighi.com"
+        click_action: "https://broker.patoughi.com"
     };
 
     return self.registration.showNotification(notificationTitle,
