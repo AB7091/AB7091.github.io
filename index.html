@@ -1,12 +1,59 @@
-<!doctype html><html lang="en" dir="rtl"><head><base href="/"><!-- Required meta tags --><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no"><!--favicon--><link rel="apple-touch-icon" sizes="57x57" href="assets1/image/fav/apple-icon-57x57.png"><link rel="apple-touch-icon" sizes="60x60" href="assets1/image/fav/apple-icon-60x60.png"><link rel="apple-touch-icon" sizes="72x72" href="assets1/image/fav/apple-icon-72x72.png"><link rel="apple-touch-icon" sizes="76x76" href="assets1/image/fav/apple-icon-76x76.png"><link rel="apple-touch-icon" sizes="114x114" href="assets1/image/fav/apple-icon-114x114.png"><link rel="apple-touch-icon" sizes="120x120" href="assets1/image/fav/apple-icon-120x120.png"><link rel="apple-touch-icon" sizes="144x144" href="assets1/image/fav/apple-icon-144x144.png"><link rel="apple-touch-icon" sizes="152x152" href="assets1/image/fav/apple-icon-152x152.png"><link rel="apple-touch-icon" sizes="180x180" href="assets1/image/fav/apple-icon-180x180.png"><link rel="icon" type="image/png" sizes="192x192" href="assets1/image/fav/android-icon-192x192.png"><link rel="icon" type="image/png" sizes="32x32" href="assets1/image/fav/favicon-32x32.png"><link rel="icon" type="image/png" sizes="96x96" href="assets1/image/fav/favicon-96x96.png"><link rel="icon" type="image/png" sizes="16x16" href="assets1/image/fav/favicon-16x16.png"><link rel="manifest" href="assets1/image/fav/manifest.json"><meta name="msapplication-TileColor" content="#ffffff"><meta name="msapplication-TileImage" content="assets1/image/fav/ms-icon-144x144.png"><meta name="theme-color" content="#ffffff"><link rel="stylesheet" href="assets1/css/style.css"><title>پاتوقی | سامانه باربری آنلاین</title><!--     Fonts and icons     --><link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet"><link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons"/><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-121810303-2"></script><script>window.dataLayer = window.dataLayer || [];
-    function gtag() { dataLayer.push(arguments); }
-    gtag('js', new Date());
+<!DOCTYPE html>
+<html>
 
-    gtag('config', 'UA-121810303-2');</script><!-- Google Tag Manager --><script>(function (w, d, s, l, i) {
-      w[l] = w[l] || []; w[l].push({
-        'gtm.start':
-          new Date().getTime(), event: 'gtm.js'
-      }); var f = d.getElementsByTagName(s)[0],
-        j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
-          'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
-    })(window, document, 'script', 'dataLayer', 'GTM-N27HXPP');</script><!-- End Google Tag Manager --><link href="/styles.833286856c54291a4960.bundle.css" rel="stylesheet"/></head><body><!-- Google Tag Manager (noscript) --><noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-N27HXPP" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript><!-- End Google Tag Manager (noscript) --><app-root><div class="loader"><svg class="circular" viewBox="25 25 50 50"><circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10"/></svg></div></app-root><script async defer="defer" type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAtfKBHsNrzW0nf-HJvQHad9MtV1BhjzYY&libraries=drawing&libraries=places&language=fa"></script><!--init js--><script type="text/javascript" src="/inline.0f348420d8f7d63f3ef4.bundle.js"></script><script type="text/javascript" src="/polyfills.5d426fa2dbe6a30a4ca0.bundle.js"></script><script type="text/javascript" src="/scripts.b4114e469934a097b37e.bundle.js"></script><script type="text/javascript" src="/main.70efa67bc02955a7a0fa.bundle.js"></script></body></html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>FIREBASE TEST</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="manifest" href="manifest.json">
+    <script src="https://www.gstatic.com/firebasejs/5.8.2/firebase.js"></script>
+    </script>
+
+</head>
+
+<body>
+    <h1>FIREBASE TEST</h1>
+
+</body>
+
+<script src="https://www.gstatic.com/firebasejs/5.8.2/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/5.8.2/firebase-messaging.js"></script>
+<script>
+    // Initialize Firebase
+    var config = {
+        // apiKey: "AIzaSyAZE7mVzqL-hvzdKTZg6tgVgUN62CKGXbo",
+        // authDomain: "fir-test-4c464.firebaseapp.com",
+        // databaseURL: "https://fir-test-4c464.firebaseio.com",
+        // projectId: "fir-test-4c464",
+        // storageBucket: "fir-test-4c464.appspot.com",
+        messagingSenderId: "1021407459353"
+    };
+    firebase.initializeApp(config);
+
+    // Retrieve Firebase Messaging object.
+    const messaging = firebase.messaging();
+
+    messaging.requestPermission().then(function () {
+        console.log('Notification permission granted.');
+        // TODO(developer): Retrieve an Instance ID token for use with FCM.
+        // ...
+    }).catch(function (err) {
+        console.log('Unable to get permission to notify.', err);
+    });
+
+    messaging.getToken().then(function (refreshedToken) {
+        console.log('token : ' + refreshedToken);
+        window.prompt("Copy to clipboard: Ctrl+C, Enter", refreshedToken);
+    }).catch(function (err) {
+        console.log('token error: ' + err);
+    });
+
+    messaging.onMessage(function (payload) {
+        console.log('Message received. ', payload);
+        // ...
+    });
+
+</script>
+
+</html>

@@ -11,7 +11,7 @@ importScripts('https://www.gstatic.com/firebasejs/5.8.2/firebase-messaging.js');
 // Initialize the Firebase app in the service worker by passing in the
 // messagingSenderId.
 firebase.initializeApp({
-    messagingSenderId: '551003982479'
+    'messagingSenderId': '1021407459353'
 });
 // Retrieve an instance of Firebase Messaging so that it can handle background
 // messages.
@@ -27,9 +27,9 @@ const messaging = firebase.messaging();
 messaging.setBackgroundMessageHandler(function (payload) {  // only if payload doesnt contain 'notification' object , this callback execute
     console.log('[firebase-messaging-sw.js] Received background message ', payload);
     // Customize notification here
-    var notificationTitle = payload.title || 'پیام از پاتوقی';
+    var notificationTitle = payload.data.title || 'پیام از پاتوقی';
     var notificationOptions = {
-        body: payload.body || 'پیام از پاتوقی',
+        body: payload.data.body || 'پیام از پاتوقی',
         click_action: "https://broker.patoughi.com"
     };
 
